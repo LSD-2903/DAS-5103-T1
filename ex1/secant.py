@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 def f(x):
     return 100**2/9.8*(sin(x) + 0.5*sin(2*x)) - 1000
 
-def secante(x1, x2, e, n):
+def secant(x1, x2, e, n):
     array = []
     k = 0
     fx1 = f(x1)
@@ -26,7 +26,7 @@ x2 = 0.8
 e = 10**-5
 n = 100
 
-array = secante(x1, x2, e, n)
+array = secant(x1, x2, e, n)
 
 print(f"O chute inicial {(x1, x2)} convergiu em {len(array)} iterações para o valor {array[-1][0]}")
 
