@@ -37,37 +37,6 @@ def jf(x):
     [0, -1100*-0.1/2*exp(-0.1*(tin+tout)/2), -1100*-0.1/2*exp(-0.1*(tin+tout)/2), 1]
 ]
 
-    n  = len(A)
-    for i in range(n):
-        pivo = i
-        for j in range(i + 1, n):
-            if abs(A[j][i]) > abs(A[pivo][i]):
-                pivo = j
-
-        if pivo != i:
-            A[i], A[pivo] = A[pivo], A[i]
-            b[i], b[pivo] = b[pivo], b[i]
-
-        if A[i][i] == 0:
-            print("Matriz sem solução única")
-            return
-        
-        for j in range(i + 1, n):
-            fator = A[j][i] / A[i][i]
-            for k in range(i, n):
-                A[j][k] = A[j][k] - fator * A[i][k]
-            b[j] = b[j] - fator * b[i]
-
-    x = [0] * n
-
-    for i in range(n - 1, -1, -1):
-        soma = 0
-
-        for j in range(i + 1, n):
-            soma += A[i][j] * x[j]
-        x[i] = (b[i] - soma) / A[i][i]
-    return x
-
 def newtonRaphson(x, e, n):
     k = 0
     m = len(x)
@@ -80,6 +49,8 @@ def newtonRaphson(x, e, n):
             return array
         x = x1
         k+= 1
+    print(f"No root found within {k}  iterations")
+    return
 
 x1 = [1, 12, 10, 0.05]
 x2 = [15, 25, 10, 1]
@@ -87,62 +58,70 @@ e = 10**-5
 n = 100
 
 array1 = newtonRaphson(x1, e, n)
-print(f"O chute inicial {x1} convergiu em {len(array1)} iterações para os valores {array1[-1][0]}")
 array2 = newtonRaphson(x2, e, n)
-print(f"O chute inicial {x2} convergiu em {len(array2)} iterações para os valores {array2[-1][0]}")
 
-deltap1 = [item[0][0] for item in array1]
-t_in1   = [item[0][1] for item in array1]
-t_out1  = [item[0][2] for item in array1]
-mi_med1 = [item[0][3] for item in array1]
+if array1:
+    print(f"O intervalo inicial {x1} convergiu em {len(array1)} iterações para {array1[-1][0]}")
+else:
+    print(f"Nenhuma raíz encontrada dentro de {n}  iterações")
+if array2:
+    print(f"O intervalo inicial {x2} convergiu em {len(array2)} iterações para {array2[-1][0]}")
+else:
+    print(f"Nenhuma raíz encontrada dentro de {n}  iterações")
 
-iteracoes1 = range(len(array1))
+if array1 and array2:
+    deltap1 = [item[0][0] for item in array1]
+    t_in1   = [item[0][1] for item in array1]
+    t_out1  = [item[0][2] for item in array1]
+    mi_med1 = [item[0][3] for item in array1]
+
+    iteracoes1 = range(len(array1))
 
 
-deltap2 = [item[0][0] for item in array2]
-t_in2   = [item[0][1] for item in array2]
-t_out2  = [item[0][2] for item in array2]
-mi_med2 = [item[0][3] for item in array2]
+    deltap2 = [item[0][0] for item in array2]
+    t_in2   = [item[0][1] for item in array2]
+    t_out2  = [item[0][2] for item in array2]
+    mi_med2 = [item[0][3] for item in array2]
 
-iteracoes2 = range(len(array2))
+    iteracoes2 = range(len(array2))
 
-fig, ax = plt.subplots(2, 2, figsize=(12, 8))
+    fig, ax = plt.subplots(2, 2, figsize=(12, 8))
 
-ax[0, 0].plot(iteracoes1, deltap1, label=r'$\Delta p$')
-ax[0, 0].plot(iteracoes1, mi_med1, label=r'$\mu_{med}$')
+    ax[0, 0].plot(iteracoes1, deltap1, label=r'$\Delta p$')
+    ax[0, 0].plot(iteracoes1, mi_med1, label=r'$\mu_{med}$')
 
-ax[0, 0].set_title('Exemplo 1')
-ax[0, 0].set_xlabel('Iteração')
-ax[0, 0].set_ylabel('Valor')
-ax[0, 0].legend()
-ax[0, 0].grid()
+    ax[0, 0].set_title('Exemplo 1')
+    ax[0, 0].set_xlabel('Iteração')
+    ax[0, 0].set_ylabel('Valor')
+    ax[0, 0].legend()
+    ax[0, 0].grid()
 
-ax[0, 1].plot(iteracoes2, deltap2, label=r'$\Delta p$')
-ax[0, 1].plot(iteracoes2, mi_med2, label=r'$\mu_{med}$')
+    ax[0, 1].plot(iteracoes2, deltap2, label=r'$\Delta p$')
+    ax[0, 1].plot(iteracoes2, mi_med2, label=r'$\mu_{med}$')
 
-ax[0, 1].set_title('Exemplo 2')
-ax[0, 1].set_xlabel('Iteração')
-ax[0, 1].set_ylabel('Valor')
-ax[0, 1].legend()
-ax[0, 1].grid()
+    ax[0, 1].set_title('Exemplo 2')
+    ax[0, 1].set_xlabel('Iteração')
+    ax[0, 1].set_ylabel('Valor')
+    ax[0, 1].legend()
+    ax[0, 1].grid()
 
-ax[1, 0].plot(iteracoes1, t_in1, label=r'$t_{in}$')
-ax[1, 0].plot(iteracoes1, t_out1, label=r'$t_{out}$')
+    ax[1, 0].plot(iteracoes1, t_in1, label=r'$t_{in}$')
+    ax[1, 0].plot(iteracoes1, t_out1, label=r'$t_{out}$')
 
-ax[1, 0].set_title('Exemplo 1')
-ax[1, 0].set_xlabel('Iteração')
-ax[1, 0].set_ylabel('Temperatura')
-ax[1, 0].legend()
-ax[1, 0].grid()
+    ax[1, 0].set_title('Exemplo 1')
+    ax[1, 0].set_xlabel('Iteração')
+    ax[1, 0].set_ylabel('Temperatura')
+    ax[1, 0].legend()
+    ax[1, 0].grid()
 
-ax[1, 1].plot(iteracoes2, t_in2, label=r'$t_{in}$')
-ax[1, 1].plot(iteracoes2, t_out2, label=r'$t_{out}$')
+    ax[1, 1].plot(iteracoes2, t_in2, label=r'$t_{in}$')
+    ax[1, 1].plot(iteracoes2, t_out2, label=r'$t_{out}$')
 
-ax[1, 1].set_title('Exemplo 2')
-ax[1, 1].set_xlabel('Iteração')
-ax[1, 1].set_ylabel('Temperatura')
-ax[1, 1].legend()
-ax[1, 1].grid()
+    ax[1, 1].set_title('Exemplo 2')
+    ax[1, 1].set_xlabel('Iteração')
+    ax[1, 1].set_ylabel('Temperatura')
+    ax[1, 1].legend()
+    ax[1, 1].grid()
 
-plt.tight_layout()
-plt.show()
+    plt.tight_layout()
+    plt.show()

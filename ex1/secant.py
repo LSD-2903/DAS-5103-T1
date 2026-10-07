@@ -8,18 +8,15 @@ def secant(x1, x2, e, n):
     k = 0
     fx1 = f(x1)
     fx2 = f(x2)
-    while True:
+    while k < n:
         k += 1
-
-        if k > n:
-            print(f"Não foi possível encontrar raíz dentro de {k}  iterações")
-            return
 
         x1, x2 = x2, (x2 - (x2 - x1)*fx2/(fx2 - fx1))
         fx1, fx2 = fx2, f(x2)
         array.append((x2, fx2))
         if abs(fx2) <= e:
                 return array
+    return
 
 x1 = 0.7
 x2 = 0.8
@@ -27,14 +24,16 @@ e = 10**-5
 n = 100
 
 array = secant(x1, x2, e, n)
+if array:
+    print(f"O intervalo inicial {(x1, x2)} convergiu em {len(array)} iterações para {array[-1][0]}")
 
-print(f"O chute inicial {(x1, x2)} convergiu em {len(array)} iterações para o valor {array[-1][0]}")
+    fig, ax = plt.subplots(2, 1)
 
-fig, ax = plt.subplots(2, 1)
+    ax[0].plot([i+1 for i in range(len(array))], [tupla[0] for tupla in array], marker = 'o')
+    ax[0].set_title("θ")
 
-ax[0].plot([i+1 for i in range(len(array))], [tupla[0] for tupla in array], marker = 'o') # 0 para x e 1 para fx
-ax[0].set_title("θ")
-
-ax[1].plot([i+1 for i in range(len(array))], [tupla[1] for tupla in array], marker = 'o') # 0 para x e 1 para fx
-ax[1].set_title("f(θ)")
-plt.show()
+    ax[1].plot([i+1 for i in range(len(array))], [tupla[1] for tupla in array], marker = 'o')
+    ax[1].set_title("f(θ)")
+    plt.show()
+else:
+    print(f"Nenhuma raíz encontrada dentro de {n}  iterações")

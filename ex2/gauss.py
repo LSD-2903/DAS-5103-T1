@@ -1,33 +1,33 @@
 def gauss(A, b):
     n  = len(A)
     for i in range(n):
-        pivo = i
+        pivot = i
         for j in range(i + 1, n):
-            if abs(A[j][i]) > abs(A[pivo][i]):
-                pivo = j
+            if abs(A[j][i]) > abs(A[pivot][i]):
+                pivot = j
 
-        if pivo != i:
-            A[i], A[pivo] = A[pivo], A[i]
-            b[i], b[pivo] = b[pivo], b[i]
+        if pivot != i:
+            A[i], A[pivot] = A[pivot], A[i]
+            b[i], b[pivot] = b[pivot], b[i]
 
         if A[i][i] == 0:
-            print("Matriz sem solução única")
+            print("A matriz é singular")
             return
         
         for j in range(i + 1, n):
-            fator = A[j][i] / A[i][i]
+            multiplier = A[j][i] / A[i][i]
             for k in range(i, n):
-                A[j][k] = A[j][k] - fator * A[i][k]
-            b[j] = b[j] - fator * b[i]
+                A[j][k] = A[j][k] - multiplier * A[i][k]
+            b[j] = b[j] - multiplier * b[i]
 
     x = [0] * n
 
     for i in range(n - 1, -1, -1):
-        soma = 0
+        sum = 0
 
         for j in range(i + 1, n):
-            soma += A[i][j] * x[j]
-        x[i] = (b[i] - soma) / A[i][i]
+            sum += A[i][j] * x[j]
+        x[i] = (b[i] - sum) / A[i][i]
     return x
 
 eq1 = [-1, 0, 0, 0, 0, 0, 2]
