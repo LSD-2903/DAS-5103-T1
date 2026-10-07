@@ -6,13 +6,17 @@ Para cada método, é apresentada sua implementação, sua aplicação ao proble
 
 ## Instalação
 Após clonar o repositório, acesse o diretório raiz:
+```bash
 cd DAS-5103-T1
+```
 Instale as dependências utilizando o arquivo requirements.txt:
-
+```bash
 pip install -r requirements.txt
-
+```
 ## Execução
 Os algoritmos devem ser executados no diretório raiz.
 
 ## Exemplo
+```bash
 python -m ex2.gauss
+```
