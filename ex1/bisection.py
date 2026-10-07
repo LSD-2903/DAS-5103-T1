@@ -4,7 +4,7 @@ def f(x):
     return 100**2/9.8*(sin(x) + 0.5*sin(2*x)) - 1000
 array = []
 
-def bissecção(a, b, e, n):
+def bisection(a, b, e, n):
     k = 0
     array = []
     fa = f(a)
@@ -29,7 +29,7 @@ b = 1.5
 e = 10**-5
 n = 100
 
-array = bissecção(a, b, e, n)
+array = bisection(a, b, e, n)
 
 print(f"O chute inicial {(a, b)} convergiu em {len(array)} iterações para o valor {array[-1][0]}")
 
