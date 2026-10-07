@@ -33,7 +33,7 @@ def jf(x):
     mi = x[3]
     return [[10**6, 0, 0, -32*l*v/d**2],
     [0, m*cp-u*As/2, m*cp*-1-u*As/2, 0],
-    [-10**6*m/(1000*nbomba*rho)*celet*24, -m*cp/1000*ccalor*24, m*cp/1000*ccalor*24, 0],
+    [-10**6*m/(1000*nbomba*rho)*celet*24, -m*cp/1000*ccalor*24, 0, 0],
     [0, -1100*-0.1/2*exp(-0.1*(tin+tout)/2), -1100*-0.1/2*exp(-0.1*(tin+tout)/2), 1]
 ]
 
@@ -45,7 +45,7 @@ def newtonRaphson(x, e, n):
         A = gauss(jf(x), f(x))
         x1 = [x[i] - A[i] for i in range(m)]
         array.append((x1, f(x1)))
-        if max(abs(x1[i]-x[i]) for i in range(m)) < e:
+        if max(abs(f(x1)[i]) for i in range(m)) < e:
             return array
         x = x1
         k+= 1
@@ -75,7 +75,7 @@ if array1 and array2:
     t_out1  = [item[0][2] for item in array1]
     mi_med1 = [item[0][3] for item in array1]
 
-    iteracoes1 = range(len(array1))
+    iteracoes1 = range(1, len(array1)+1)
 
 
     deltap2 = [item[0][0] for item in array2]
@@ -83,42 +83,42 @@ if array1 and array2:
     t_out2  = [item[0][2] for item in array2]
     mi_med2 = [item[0][3] for item in array2]
 
-    iteracoes2 = range(len(array2))
+    iteracoes2 = range(1, len(array2)+1)
 
     fig, ax = plt.subplots(2, 2, figsize=(12, 8))
 
-    ax[0, 0].plot(iteracoes1, deltap1, label=r'$\Delta p$')
-    ax[0, 0].plot(iteracoes1, mi_med1, label=r'$\mu_{med}$')
+    ax[0, 0].plot(iteracoes1, deltap1, label=r'$\Delta p$', marker='o')
+    ax[0, 0].plot(iteracoes1, mi_med1, label=r'$\mu_{med}$', marker='o')
 
     ax[0, 0].set_title('Exemplo 1')
-    ax[0, 0].set_xlabel('Iteração')
+    ax[0, 0].set_xlabel('Iterações')
     ax[0, 0].set_ylabel('Valor')
     ax[0, 0].legend()
     ax[0, 0].grid()
 
-    ax[0, 1].plot(iteracoes2, deltap2, label=r'$\Delta p$')
-    ax[0, 1].plot(iteracoes2, mi_med2, label=r'$\mu_{med}$')
+    ax[0, 1].plot(iteracoes2, deltap2, label=r'$\Delta p$', marker='o')
+    ax[0, 1].plot(iteracoes2, mi_med2, label=r'$\mu_{med}$', marker='o')
 
     ax[0, 1].set_title('Exemplo 2')
-    ax[0, 1].set_xlabel('Iteração')
+    ax[0, 1].set_xlabel('Iterações')
     ax[0, 1].set_ylabel('Valor')
     ax[0, 1].legend()
     ax[0, 1].grid()
 
-    ax[1, 0].plot(iteracoes1, t_in1, label=r'$t_{in}$')
-    ax[1, 0].plot(iteracoes1, t_out1, label=r'$t_{out}$')
+    ax[1, 0].plot(iteracoes1, t_in1, label=r'$t_{in}$', marker='o')
+    ax[1, 0].plot(iteracoes1, t_out1, label=r'$t_{out}$', marker='o')
 
     ax[1, 0].set_title('Exemplo 1')
-    ax[1, 0].set_xlabel('Iteração')
+    ax[1, 0].set_xlabel('Iterações')
     ax[1, 0].set_ylabel('Temperatura')
     ax[1, 0].legend()
     ax[1, 0].grid()
 
-    ax[1, 1].plot(iteracoes2, t_in2, label=r'$t_{in}$')
-    ax[1, 1].plot(iteracoes2, t_out2, label=r'$t_{out}$')
+    ax[1, 1].plot(iteracoes2, t_in2, label=r'$t_{in}$', marker='o')
+    ax[1, 1].plot(iteracoes2, t_out2, label=r'$t_{out}$', marker='o')
 
     ax[1, 1].set_title('Exemplo 2')
-    ax[1, 1].set_xlabel('Iteração')
+    ax[1, 1].set_xlabel('Iterações')
     ax[1, 1].set_ylabel('Temperatura')
     ax[1, 1].legend()
     ax[1, 1].grid()

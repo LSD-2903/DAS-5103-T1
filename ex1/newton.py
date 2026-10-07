@@ -18,7 +18,7 @@ def newton(x0, e, n):
         x1 = g(x0)
         array.append((x1, f(x1)))
 
-        if abs(x1 - x0) <= e:
+        if abs(f(x1)) <= e:
             return array
         x0 = x1
     return
@@ -32,7 +32,7 @@ if array:
     print(f"O valor inicial {x0} convergiu em {len(array)} iterações para {array[-1][0]}")
 
     fig, ax = plt.subplots(2, 1)
-
+    
     ax[0].plot([i+1 for i in range(len(array))], [tupla[0] for tupla in array], marker = 'o')
     ax[0].set_title("θ")
 
