@@ -8,6 +8,7 @@ Para cada método, é apresentada sua implementação, sua aplicação ao proble
 Após clonar o repositório, acesse o diretório raiz:
 cd DAS-5103-T1
 Instale as dependências utilizando o arquivo requirements.txt:
+
 pip install -r requirements.txt
 
 ## Execução
