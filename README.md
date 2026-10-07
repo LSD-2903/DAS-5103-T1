@@ -11,7 +11,7 @@ cd DAS-5103-T1
 ```
 Instale as dependências utilizando o arquivo requirements.txt:
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 ## Execução
 Os algoritmos devem ser executados no diretório raiz.
